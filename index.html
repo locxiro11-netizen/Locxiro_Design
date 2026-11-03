@@ -901,6 +901,9 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 .cur-r.hv{width:62px;height:62px;margin:-31px 0 0 -31px;background:#fff}
 .cur-r.hv::after{content:attr(data-t)}
 @media (hover:none){.cur,.cur-r{display:none}}
+/* build tag — 右下角固定版本串，用来一眼确认加载的是哪一版（手机清缓存后用得上） */
+.vtag{position:fixed;right:10px;bottom:7px;z-index:160;font:600 9px var(--f-h);letter-spacing:.16em;color:rgba(21,21,21,.32);pointer-events:none;user-select:none}
+@media (max-width:900px){.vtag{right:8px;bottom:calc(6px + env(safe-area-inset-bottom,0px));font-size:10px;letter-spacing:.12em;color:rgba(21,21,21,.46)}}
 .grain{position:fixed;inset:-50%;z-index:150;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
 @keyframes grain{25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,3%)}75%{transform:translate(2%,2%)}}
 
@@ -924,7 +927,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 <div id="loader">
   <div class="ld-grid"></div>
   <div class="ld-hud tl"><b>LTY ARCHIVE OS</b><span>GAME UI DESIGNER · PORTFOLIO</span></div>
-  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.10 · UTC+8</span></div>
+  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.11 · v25 · UTC+8</span></div>
   <ul class="ld-log" id="ldLog"></ul>
   <div class="ld-ticks" id="ldTicks"></div>
   <div class="ld-num"><span class="n">0</span><i>%</i></div>
@@ -1157,6 +1160,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 
 <div class="cur"></div><div class="cur-r" data-t="VIEW"></div>
 <div class="grain"></div>
+<i class="vtag">LTY ARCHIVE OS · v25 · 2026.11.03</i>
 
 <script src="data/works.js"></script>
 <script src="data/resume.js"></script>
