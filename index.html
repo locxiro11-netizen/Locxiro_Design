@@ -670,21 +670,71 @@ a{color:inherit;text-decoration:none}
 .ffoot button{margin-left:auto;font:inherit;letter-spacing:inherit;color:var(--ink);transition:color .3s}
 .ffoot button:hover{color:var(--acc)}
 .fmob{display:none}
+/* ---- MOBILE EDITION · 手机专版：单列大图 + 可读字号 ---- */
 @media (max-width:900px),(max-aspect-ratio:1/1){
   #file .fst{display:none}
-  .fsc{-webkit-mask-image:none;mask-image:none}
-  .fcol{zoom:1;width:auto;padding:0 18px 60px}
-  .fmob{display:flex;position:sticky;top:0;z-index:5;margin:0 -18px 24px;padding:14px 18px;align-items:center;gap:14px;background:rgba(234,229,225,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,21,21,.12);font:700 10px var(--f-h);letter-spacing:.1em}
-  .fmob b{flex:1}.fmob button{font:inherit;letter-spacing:inherit;color:inherit}
-  .fh-t{flex-wrap:wrap;padding-left:0;gap:8px 16px}.fh-t h1{font-size:34px}.fh-t span{margin-left:0;white-space:normal}
-  .fh-g{grid-template-columns:1fr;gap:28px;padding-left:0}
-  .fsp{padding-left:0}.fsp-row{overflow-x:auto}
-  .fh-ln,.fg-ln,.fnx-ln{margin-right:0}
-  .fg{padding-top:80px}.fg-r{flex-wrap:wrap}
-  .fg-b.land{grid-template-columns:1fr}
-  .fg-b.port{flex-wrap:wrap;padding-top:0}.fg-b.port .slv{flex:0 0 calc(50% - 10px);margin-bottom:0}
-  .fnx-b{grid-template-columns:1fr;gap:12px}.fnx-b .b{font-size:30px;flex-wrap:wrap}
-  .ffoot{flex-wrap:wrap;gap:12px}
+  .fsc{-webkit-mask-image:none;mask-image:none;-webkit-overflow-scrolling:touch}
+  .fcol{zoom:1;width:100%;max-width:100%;margin:0;padding:0 16px calc(56px + env(safe-area-inset-bottom,0px))}
+  /* sticky 档案抬头 */
+  .fmob{display:flex;position:sticky;top:0;z-index:5;margin:0 -16px 22px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;align-items:center;gap:8px;background:rgba(234,229,225,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(21,21,21,.12);font:700 11px var(--f-h);letter-spacing:.08em}
+  .fmob b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .fmob button{font:inherit;letter-spacing:inherit;color:inherit;min-width:38px;min-height:38px;display:grid;place-items:center;border:1px solid rgba(21,21,21,.16);background:rgba(255,255,255,.42);flex:none}
+  .fmob button:active{background:var(--ink);color:#fff}
+  /* hero — 重排为竖排、字号提到可读区间 */
+  .fh-k{flex-wrap:wrap;gap:5px 14px;font-size:10px}
+  .fh-c{margin-top:16px;font-size:10px;gap:8px}
+  .fh-no{margin-top:10px;font-size:23px}
+  .fh-ln{height:12px;margin-top:12px;margin-right:0}
+  .fh-t{flex-direction:column;align-items:flex-start;flex-wrap:wrap;padding-left:0;gap:6px;margin-top:14px}
+  .fh-t h1{font-size:29px;white-space:normal;line-height:1.16}
+  .fh-t em{font-size:10.5px;letter-spacing:.24em}
+  .fh-t span{margin-left:0;white-space:normal;font-size:10px;line-height:1.75}
+  .fh-g{grid-template-columns:1fr;gap:24px;padding-left:0;margin-top:22px}
+  .fh-ab .k,.fh-f dt{font-size:9.5px}
+  .fh-ab .tx{margin-top:8px;font-size:15px;line-height:1.85}
+  .fh-ab .rp{margin-top:6px;font-size:13.5px;line-height:1.8}
+  .fh-f{grid-template-columns:1fr 1fr;gap:16px 18px;padding-top:16px}
+  .fh-f dd{font-size:14.5px;margin-top:5px;line-height:1.5}
+  /* 档案脊柱 */
+  .fsp{padding-left:0;margin-top:22px}
+  .fsp-k{font-size:9.5px}
+  .fsp-row{height:128px;padding-top:14px;overflow-x:auto;overflow-y:hidden}
+  .fsp-row .fin{flex:0 0 46px}
+  .fin.lb .v{font-size:10px;top:24px}
+  .fin.lb .ct{font-size:7px}
+  /* 分组 */
+  .fg{padding-top:62px}
+  .fg-k{font-size:10px;gap:10px;flex-wrap:wrap}
+  .fg-r{flex-wrap:wrap;gap:8px 12px;margin-top:12px}
+  .fg-r h2{font-size:26px;line-height:1.2}
+  .fg-r em{font-size:9.5px;letter-spacing:.24em}
+  .fg-n{font-size:10px;padding:3px 8px;margin-left:0}
+  .fg-ln{margin-right:0}
+  .fg-d{margin-top:12px;font-size:14px;line-height:1.82;max-width:none}
+  /* 作品：统一单列大图 */
+  .fg-b{margin-top:24px}
+  .fg-b.land{grid-template-columns:1fr;gap:30px}
+  .fg-b.land .wide{grid-column:auto}
+  .fg-b.port{flex-direction:column;align-items:stretch;flex-wrap:nowrap;padding-top:0;gap:30px}
+  .fg-b.port .slv{flex:none;width:100%;max-width:none;margin-bottom:0}
+  .slv-in{padding:9px;border-radius:6px}
+  .slv.pt .slv-in{padding:8px}
+  .slv:hover .slv-in{transform:none}
+  .slv figcaption{margin-top:10px;font-size:13.5px;gap:9px}
+  .slv figcaption b{font-size:10px}
+  .slv figcaption em{display:none}
+  .slv.pt figcaption{font-size:13px}
+  /* 下一份档案 */
+  .fnx{margin-top:78px}
+  .fnx-k{font-size:10px;gap:10px;flex-wrap:wrap}
+  .fnx-b{grid-template-columns:1fr;gap:10px;padding:22px 0 18px}
+  .fnx-b .a{font-size:11px}
+  .fnx-b .b{font-size:22px;flex-wrap:wrap;gap:8px;line-height:1.2}
+  .fnx-b .b em{font-size:9.5px;letter-spacing:.24em}
+  .fnx-b .c{font-size:10.5px;gap:10px}
+  .fnx-ln{margin-right:0}
+  .ffoot{flex-direction:column;align-items:flex-start;gap:7px;margin-top:28px;font-size:9.5px;line-height:1.6}
+  .ffoot button{margin-left:0;padding-top:8px}
 }
 /* cabinet ↔ file cascade states */
 #cabinet.xfa .dtl{opacity:0!important;transition:opacity .16s linear!important}
@@ -855,9 +905,17 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 @keyframes grain{25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,3%)}75%{transform:translate(2%,2%)}}
 
 @media (max-width:900px){
-  .lb-btn{width:44px;height:44px}.lb-prev{left:8px}.lb-next{right:8px}
+  .lb-fig{max-width:94vw;max-height:88vh}
+  .lb-fig img{max-width:94vw;max-height:70vh}
+  .lb-cap{margin-top:14px;flex-wrap:wrap;gap:6px 12px;font-size:13px;line-height:1.6;max-width:90vw;text-align:center;justify-content:center}
+  .lb-cap em{font-size:10px}
+  .lb-x{right:14px;top:calc(12px + env(safe-area-inset-top,0px));font-size:10px;padding:10px 12px;gap:6px}
+  .lb-btn{top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:none;width:54px;height:54px;font-size:20px}
+  .lb-prev{left:16px}.lb-next{right:16px}
+  .lb-hint{display:block}
   .ld-log{display:none}.g-top,.g-bot{left:24px;right:24px}
 }
+.lb-hint{position:absolute;left:0;right:0;bottom:calc(84px + env(safe-area-inset-bottom,0px));text-align:center;font:600 9.5px var(--f-h);letter-spacing:.14em;color:#8C8A85;display:none}
 </style>
 </head>
 <body>
@@ -1094,6 +1152,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
   <figure class="lb-fig"><img id="lbImg" alt=""><figcaption class="lb-cap"><b id="lbIdx"></b><span id="lbCap"></span><em id="lbGrp"></em></figcaption></figure>
   <button class="lb-btn lb-next" id="lbN">›</button>
   <i class="lb-bar" id="lbBar"></i>
+  <p class="lb-hint">左右滑动切换 · 轻点空白处关闭</p>
 </div>
 
 <div class="cur"></div><div class="cur-r" data-t="VIEW"></div>
@@ -2633,6 +2692,9 @@ window.TK={ok:false};
    · composite       : rgb shift
    Splines, normal map, matcap and all code are generated / written for this page; no Active Theory code or assets are included. */
 window.VW={open:false,cover:false,tc:0,dead:false};
+/* 手机端：流体暗房改用轻量大图灯箱（移动端 GPU 压力 + 滚轮/右键交互不可用） */
+window.ISMOB=matchMedia('(max-width:900px),(max-aspect-ratio:1/1)').matches;
+if(window.ISMOB)window.VW.dead=true;
 (function(){
   let built=false,T,R,cv,cam,pcam,qCam,Q,qm,scn,room,panel,pts,NMAP,NP=0;
   const FL={},P={};let rtP,rtM=[null,null],mi=0;
@@ -2955,6 +3017,13 @@ function openLB(s,i){if(window.VW&&!VW.dead&&!fx){if(VW.open)return;VW.show(s,i)
 function closeLB(){lb.classList.remove('on');lbImg.classList.remove('ok')}
 function stepLB(d){const n=LB[lbS].length;lbI=(lbI+d+n)%n;showLB();beep(1300,.03)}
 $('#lbX').onclick=closeLB;$('.lb-bg').onclick=closeLB;$('#lbP').onclick=()=>stepLB(-1);$('#lbN').onclick=()=>stepLB(1);
+/* 手机：左右滑动切换 / 轻点图外关闭 */
+(function(){let x0=0,y0=0,t0=0,moved=false;const E=$('#lb');
+  E.addEventListener('touchstart',e=>{if(!E.classList.contains('on'))return;const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();moved=false},{passive:true});
+  E.addEventListener('touchmove',e=>{moved=true},{passive:true});
+  E.addEventListener('touchend',e=>{if(!E.classList.contains('on'))return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
+    if(Date.now()-t0<620&&Math.abs(dx)>46&&Math.abs(dx)>Math.abs(dy)*1.3){stepLB(dx<0?1:-1);return}
+    if(!moved&&Math.abs(dx)<12&&Math.abs(dy)<12&&!e.target.closest('.lb-btn,.lb-x,img'))closeLB()},{passive:true})})();
 
 /* ================= KEYS ================= */
 addEventListener('keydown',e=>{
