@@ -809,6 +809,72 @@ a{color:inherit;text-decoration:none}
 .gcap em{font:700 7.5px var(--f-h);font-style:normal;letter-spacing:.18em;color:#8C8A85}
 .gcap i{font:700 7.5px var(--f-h);font-style:normal;letter-spacing:.18em;padding:3px 7px;border:1px solid rgba(21,21,21,.3);color:#2a2825}
 
+/* ---------- G3 MOBILE HUD · 手机上直接挂在视口上，不受 1600×900 画布缩放影响 ---------- */
+.ghud-m{display:none}
+@media (max-width:900px),(max-aspect-ratio:1/1){
+  #g3cv{touch-action:none}
+  .ghud-m{display:block;position:fixed;inset:0;z-index:6;pointer-events:none}
+  .ghud-m button,.ghud-m .gr-w{pointer-events:auto}
+  .gm-top{position:absolute;left:0;right:0;top:0;padding:calc(58px + env(safe-area-inset-top,0px)) 18px 0}
+  .gm-back{position:absolute;left:18px;top:calc(14px + env(safe-area-inset-top,0px));pointer-events:auto;padding:10px 13px;font:700 9.5px var(--f-h);letter-spacing:.14em;color:var(--ink);border:1px solid rgba(21,21,21,.2);background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .gm-back:active{background:var(--ink);color:#fff}
+  .gm-bot{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 18px;display:flex;flex-direction:column;gap:11px}
+  /* 复位桌面版那些 1600×900 画布内的绝对定位，改由移动端容器排版 */
+  .ghud-m .gintro{position:static;width:auto;left:auto;top:auto;transition:opacity .45s var(--out),transform .55s var(--out)}
+  .ghud-m .gintro.off{opacity:0;transform:translateY(-16px)}
+  .ghud-m .gi-k{display:flex;justify-content:space-between;font:600 9px var(--f-h);letter-spacing:.12em;color:#6f6c66}
+  .ghud-m .gi-t{display:flex;align-items:baseline;gap:12px;margin-top:8px}
+  .ghud-m .gi-t h1{font:900 27px/1.15 var(--f-cn);letter-spacing:.06em}
+  .ghud-m .gi-t em{font:800 9.5px var(--f-h);font-style:normal;letter-spacing:.26em;color:var(--acc)}
+  .ghud-m .gi-ab{margin-top:9px;font:500 13px/1.75 var(--f-cn);color:#3d3b38;text-shadow:0 0 16px rgba(244,240,234,.9)}
+  .ghud-m .gi-s{margin-top:11px;display:flex;align-items:center;gap:9px;font:600 9.5px var(--f-h);letter-spacing:.16em;color:#6f6c66}
+  .ghud-m .gi-s i{width:1px;height:20px;background:var(--ink);position:relative;overflow:hidden}
+  .ghud-m .gi-s i::after{content:"";position:absolute;left:0;top:-30%;width:1px;height:30%;background:var(--acc);animation:gidrop 1.6s var(--ease) infinite}
+  /* 作品标题 + 说明：固定底部，不跟随展板缩放 */
+  .ghud-m .gtitle,.ghud-m .gcap{position:static!important;transform:none!important;text-align:left;white-space:normal;transition:opacity .35s var(--out)}
+  .ghud-m .gtitle h3{font:900 21px/1.25 var(--f-cn);letter-spacing:.05em;margin-top:5px;color:#1b1a18;text-shadow:0 0 26px rgba(246,242,236,.96),0 0 8px rgba(246,242,236,.9)}
+  .ghud-m .gtitle p{display:flex;justify-content:flex-start;align-items:center;gap:7px;font:700 9px var(--f-m);letter-spacing:.18em;color:#4a4740}
+  .ghud-m .gtitle p i{width:7px;height:7px;background:var(--acc)}
+  .ghud-m .gtitle em{display:block;margin-top:5px;font:800 9px var(--f-h);font-style:normal;letter-spacing:.3em;color:var(--acc)}
+  .ghud-m .gcap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:600 12.5px/1.5 var(--f-cn);color:#2a2825;text-shadow:0 0 14px rgba(244,240,234,.95)}
+  .ghud-m .gcap b{font:700 10px var(--f-m);color:var(--acc)}
+  .ghud-m .gcap em{font:700 8.5px var(--f-h);font-style:normal;letter-spacing:.16em;color:#8C8A85}
+  .ghud-m .gcap i{font:700 8.5px var(--f-h);font-style:normal;letter-spacing:.16em;padding:3px 7px;border:1px solid rgba(21,21,21,.3);color:#2a2825}
+  /* 下一份档案 */
+  .ghud-m .gnext{position:static;width:auto;left:auto;top:auto;opacity:0;transform:translateY(14px);transition:opacity .45s var(--out),transform .55s var(--out)}
+  .ghud-m .gnext.on{opacity:1;transform:none}
+  .ghud-m .gnext button{display:block;width:100%;text-align:left;padding:11px 13px;background:rgba(247,244,239,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 0 0 1px rgba(140,120,90,.12),0 18px 30px -22px rgba(80,64,40,.45)}
+  .ghud-m .gnext .gn-k{display:flex;justify-content:space-between;font:600 8px var(--f-h);letter-spacing:.12em;color:#7b7872}
+  .ghud-m .gnext .gn-k i{font-style:normal;color:var(--nc)}
+  .ghud-m .gnext .gn-t{margin-top:5px;font:900 16px var(--f-cn);letter-spacing:.05em;display:flex;align-items:baseline;gap:8px}
+  .ghud-m .gnext .gn-t em{font:800 7.5px var(--f-h);font-style:normal;letter-spacing:.22em;color:var(--nc)}
+  .ghud-m .gnext .gn-b{height:2px;background:rgba(21,21,21,.12);margin-top:8px;position:relative}
+  .ghud-m .gnext .gn-b i{position:absolute;left:0;top:0;height:2px;width:0;background:var(--nc)}
+  /* 右侧进度刻度 */
+  .gm-side{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:44vh}
+  .ghud-m .gr-w{position:relative;right:auto;top:auto;bottom:auto;width:36px;height:100%}
+  .ghud-m .gr-t{position:absolute;right:0;height:1px;width:12px;background:rgba(21,21,21,.32);cursor:pointer;transition:width .4s var(--out),background .3s}
+  .ghud-m .gr-t::after{content:"";position:absolute;right:-8px;top:-12px;left:-22px;height:26px}
+  .ghud-m .gr-t.on{width:26px;height:2px;background:var(--acc)}
+  .ghud-m .gr-t i{position:absolute;right:30px;top:-5px;font:600 7px var(--f-m);font-style:normal;color:#8C8A85;letter-spacing:.06em}
+  .ghud-m .gr-r{position:absolute;right:2px;top:auto;bottom:calc(100% + 10px);text-align:right;white-space:nowrap}
+  .ghud-m .gr-r b{font:300 21px/1 var(--f-h)}
+  .ghud-m .gr-r span{font:300 11px var(--f-h);color:#8C8A85;margin-left:4px}
+  .ghud-m .gr-r p{margin-top:5px;font:600 10px var(--f-cn);letter-spacing:.06em;color:#4a4740}
+  .ghud-m .gr-r em{display:block;margin-top:3px;font:700 7px var(--f-h);font-style:normal;letter-spacing:.18em;color:var(--acc)}
+  /* 矮屏（手机横屏）：HUD 收紧，把画面留给展廊 */
+  @media (max-height:480px){
+    .gm-top{padding-top:calc(48px + env(safe-area-inset-top,0px))}
+    .ghud-m .gi-ab{display:none}
+    .ghud-m .gi-t h1{font-size:22px}
+    .ghud-m .gi-s{margin-top:7px}
+    .gm-bot{gap:7px}
+    .ghud-m .gtitle h3{font-size:17px;margin-top:3px}
+    .ghud-m .gcap{font-size:11.5px}
+    .gm-side{height:40vh}
+  }
+}
+
 
 /* ================= THANKS · HEX WALL ================= */
 #thanks{background:#eae5e1;--acc:var(--or)}
@@ -849,7 +915,7 @@ a{color:inherit;text-decoration:none}
 /* ================= WORK VIEWER · DARK ROOM + FLUID PARTICLES ================= */
 #vw{position:fixed;inset:0;z-index:79;visibility:hidden;pointer-events:none;--acc:var(--or)}
 #vw.on{visibility:visible;pointer-events:auto}
-#vwcv{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#vwcv{position:absolute;left:0;top:0;width:100%;height:100%;display:block;touch-action:none}
 #vw .stage,#vw .stage *{pointer-events:none}
 #vw .stage .pe,#vw .stage .pe *{pointer-events:auto}
 #vw .stage{text-shadow:0 1px 10px rgba(0,0,0,.55);color:#e9e5de}
@@ -874,6 +940,33 @@ a{color:inherit;text-decoration:none}
 .vw-or{right:0;top:868px;padding:9px 18px;background:rgba(14,14,14,.86);border:1px solid rgba(255,255,255,.14);color:#e9e5de;font:600 9px var(--f-m);letter-spacing:.12em;text-shadow:none;transition:background .3s,color .3s}
 .vw-or:hover{background:#ece8e1;color:#141414}
 .vw-ft{left:0;right:0;top:874px;text-align:center;font:600 8.5px var(--f-h);letter-spacing:.1em;color:#7d786f}
+/* ---------- VW MOBILE · 暗房 HUD 直接铺在视口上，脱开 1600×900 画布 ---------- */
+@media (max-width:900px),(max-aspect-ratio:1/1){
+  #vw .stage{left:0;top:0;width:100%;height:100%;transform:none!important}
+  #vw .brand{display:none}
+  .vw-sc{left:0;right:0;top:calc(18px + env(safe-area-inset-top,0px));text-align:center;font:500 12px var(--f-m);letter-spacing:.14em;color:#cfcac2}
+  .vw-info{left:0;right:0;top:auto;bottom:calc(126px + env(safe-area-inset-bottom,0px));width:auto;padding:0 18px;text-shadow:0 1px 14px rgba(0,0,0,.62)}
+  .vw-info h4{font-size:10.5px}
+  .vw-info .vw-cn{font-size:17px;margin-top:3px}
+  .vw-info .vw-ix{margin-top:7px;font-size:9px}
+  .vw-info .vw-ds{margin-top:7px;font-size:12.5px;line-height:1.7}
+  .vw-info .vw-sv{display:none}
+  .vw-info .vw-x{position:fixed;right:14px;top:calc(14px + env(safe-area-inset-top,0px));margin-top:0;padding:11px 15px;border:1px solid rgba(255,255,255,.3);background:rgba(14,14,14,.62);font-size:10px;text-align:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .vw-nav{left:0;right:0;top:auto;bottom:calc(72px + env(safe-area-inset-bottom,0px));width:fit-content;margin:0 auto;gap:6px;padding:6px;background:rgba(18,18,18,.62)}
+  .vw-nav button{width:58px;height:46px;font-size:16px}
+  .vw-nav span{padding:0 10px;font-size:10px}
+  .vw-nav span b{font-size:13px}
+  .vw-nav span em{font-size:10px;margin-left:6px}
+  .vw-or{left:0;right:0;top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:fit-content;margin:0 auto;padding:11px 16px;font-size:9.5px}
+  .vw-ft{display:none}
+  @media (max-height:480px){
+    .vw-sc{display:none}
+    .vw-info{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+    .vw-info .vw-cn{font-size:15px}.vw-info .vw-ds{display:none}
+    .vw-nav{bottom:calc(52px + env(safe-area-inset-bottom,0px))}
+    .vw-or{bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  }
+}
 
 /* ================= LIGHTBOX ================= */
 #lb{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;visibility:hidden;pointer-events:none}
@@ -927,7 +1020,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 <div id="loader">
   <div class="ld-grid"></div>
   <div class="ld-hud tl"><b>LTY ARCHIVE OS</b><span>GAME UI DESIGNER · PORTFOLIO</span></div>
-  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.11 · v25 · UTC+8</span></div>
+  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.11 · v26 · UTC+8</span></div>
   <ul class="ld-log" id="ldLog"></ul>
   <div class="ld-ticks" id="ldTicks"></div>
   <div class="ld-num"><span class="n">0</span><i>%</i></div>
@@ -1141,9 +1234,9 @@ body.mv .cur,body.mv .cur-r{opacity:1}
   <canvas id="vwcv"></canvas>
   <div class="stage">
     <div class="abs brand vwi" style="--d:.05s"><h1>LIU TIANYI</h1><p>GAME INTERFACE DESIGNER</p><h2>ARCHIVE<b>OS</b></h2></div>
-    <p class="abs vw-sc vwi" style="--d:.1s">SCROLL TO BROWSE</p>
+    <p class="abs vw-sc vwi" style="--d:.1s">拖动 / 滚轮 · 浏览作品</p>
     <div class="abs vw-nav vwi pe" style="--d:.12s"><button class="pe" data-v="-1">&lt;&lt;</button><span><b class="js-vn">01</b>/ <i class="js-vt" style="font-style:normal">20</i><em class="js-vg"></em></span><button class="pe" data-v="1">&gt;&gt;</button></div>
-    <div class="abs vw-info vwi" style="--d:.18s"><h4><span class="js-vce"></span><span class="vw-cn js-vc"></span></h4><p class="vw-ix js-vix"></p><p class="vw-ds js-vd"></p><span class="vw-sv js-vs"></span><button class="pe vw-x">右键 / ESC CLOSE</button></div>
+    <div class="abs vw-info vwi" style="--d:.18s"><h4><span class="js-vce"></span><span class="vw-cn js-vc"></span></h4><p class="vw-ix js-vix"></p><p class="vw-ds js-vd"></p><span class="vw-sv js-vs"></span><button class="pe vw-x">✕ CLOSE</button></div>
     <button class="abs pe vw-or vwi" style="--d:.24s">VIEW ORIGINAL ↗</button>
     <div class="abs vw-ft vwi" style="--d:.28s">移动鼠标 搅动画面 &nbsp; / &nbsp; ← → / 滚轮 切换作品 &nbsp; / &nbsp; 右键 / ESC 关闭 &nbsp; / &nbsp; ENTER 查看原图</div>
   </div>
@@ -1160,7 +1253,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 
 <div class="cur"></div><div class="cur-r" data-t="VIEW"></div>
 <div class="grain"></div>
-<i class="vtag">LTY ARCHIVE OS · v25 · 2026.11.03</i>
+<i class="vtag">LTY ARCHIVE OS · v26 · 2026.11.03</i>
 
 <script src="data/works.js"></script>
 <script src="data/resume.js"></script>
@@ -2179,6 +2272,10 @@ function renderFile(k){
     secs+=`<section class="fg" id="g${gi}"><header class="fg-h rv2"><div class="fg-k"><i></i>SECTION ${pad(gi+1)} / ${pad(G)}<span>NO.${d.no} — ${String.fromCharCode(65+gi)}</span></div>
       <div class="fg-r"><h2>${g.cn}</h2><em>${g.en}</em><span class="fg-n">${pad(n)} FILES</span></div><div class="fg-ln"><i></i></div><p class="fg-d">${g.desc}</p></header>
       <div class="fg-b ${port?'port':'land'}">${items}</div></section>`});
+  const TICKS=(()=>{let o='',j=0;const N=d.count;d.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{o+=`<i class="gr-t pe" data-j="${j}" style="top:${(N>1?j/(N-1)*100:0).toFixed(2)}%">${ii===0?`<i>${pad(gi+1)}</i>`:''}</i>`;j++}));return o})();
+  const GNEXT=(m)=>i===ORDER.length-1
+    ?`<div class="${m?'':'abs '}gnext g3o" style="--nc:var(--acc)"><button data-act="thanks"><div class="gn-k"><span>${m?'END OF ARCHIVE':'END OF ARCHIVE · ALL FILES READ'}</span><i>继续${m?'上滑':'向下滚动'} ↓</i></div><div class="gn-t">THANKS FOR WATCHING<em>感谢观看</em></div><div class="gn-b"><i class="js-gov"></i></div></button></div>`
+    :`<div class="${m?'':'abs '}gnext g3o" style="--nc:${nd.acc}"><button data-go="${next}"><div class="gn-k"><span>NEXT FILE · NO.${nd.no}</span><i>继续${m?'上滑':'向下滚动'} ↓</i></div><div class="gn-t">${nd.cn}<em>${nd.en}</em></div><div class="gn-b"><i class="js-gov"></i></div></button></div>`;
   const bg=window.fBgUrl,P=document.createElement('div');P.className='fpage pre lz';P.dataset.k=k;
   P.innerHTML=`
   <div class="fbg${bg?' has':''}"><i class="fbg-i" style="${bg?`background-image:url(${bg})`:''}"></i><i class="fveil"></i></div>
@@ -2212,9 +2309,8 @@ function renderFile(k){
       <dl class="gi-f">${meta.map(([a,b])=>`<div><dt>${a} / ${ZH[a]||''}</dt><dd>${b}</dd></div>`).join('')}<div><dt>STATUS / 状态</dt><dd>已解封 · ${pad(d.count)} FILES</dd></div></dl>
       <p class="gi-s"><i></i>SCROLL ↓ &nbsp;向下滚动 · 沿档案脊柱浏览作品</p></div></div>
     <div class="abs gruler g3o"><div class="gr-r"><b class="js-gn">00</b><span>/ ${pad(d.count)}</span><p class="js-gg">${d.groups[0].cn}</p><em class="js-ge">${d.groups[0].en}</em></div>
-      <div class="gr-w">${(()=>{let o='',j=0;const N=d.count;d.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{o+=`<i class="gr-t pe" data-j="${j}" style="top:${(N>1?j/(N-1)*100:0).toFixed(2)}%">${ii===0?`<i>${pad(gi+1)}</i>`:''}</i>`;j++}));return o})()}</div></div>
-    ${i===ORDER.length-1?`<div class="abs gnext g3o" style="--nc:var(--acc)"><button data-act="thanks"><div class="gn-k"><span>END OF ARCHIVE · ALL FILES READ</span><i>继续向下滚动 ↓</i></div><div class="gn-t">THANKS FOR WATCHING<em>感谢观看</em></div><div class="gn-b"><i class="js-gov"></i></div></button></div>`
-      :`<div class="abs gnext g3o" style="--nc:${nd.acc}"><button data-go="${next}"><div class="gn-k"><span>NEXT FILE · NO.${nd.no}</span><i>继续向下滚动 ↓</i></div><div class="gn-t">${nd.cn}<em>${nd.en}</em></div><div class="gn-b"><i class="js-gov"></i></div></button></div>`}
+      <div class="gr-w">${TICKS}</div></div>
+    ${GNEXT(0)}
     <div class="abs cab-top fnav fi" style="--d:.06s"><button class="pe js-mode" data-act="mode"><b>${window.G3&&G3.mode3===false?'◈':'▦'}</b><span>${window.G3&&G3.mode3===false?'SPINE VIEW':'GRID VIEW'}</span></button><button class="pe" data-go="${prev}">‹ NO.${pd.no}</button><span>FILE <b>${pad(i+1)}</b> / 03</span><button class="pe" data-go="${next}">NO.${nd.no} ›</button><span class="ck"></span></div>
     <button class="abs d-back pe fi" style="--d:.1s" data-act="back"><i>←</i>ARCHIVE OVERVIEW<kbd>ESC</kbd></button>
     <div class="abs flbl fi" style="--d:.14s"><div class="lb-in"><div class="l1"><b>LTY ARCHIVE, LLC.</b><span class="chip">L T / A R</span></div>
@@ -2228,7 +2324,21 @@ function renderFile(k){
     <div class="abs cfr">LIU TIANYI &nbsp; / &nbsp; <span class="js-clock">--:--:--</span> &nbsp; / &nbsp; <button class="pe" data-act="resume">RESUME ↗</button></div>
   </div>
   <div class="gov g3o"><div class="gtitle"><p><i></i><span class="js-tk"></span></p><h3 class="js-tt"></h3><em class="js-te"></em></div>
-    <div class="gcap"><b class="js-cn"></b><span class="js-cc"></span><em class="js-cg"></em><i>CLICK TO VIEW ↗</i></div></div>`;
+    <div class="gcap"><b class="js-cn"></b><span class="js-cc"></span><em class="js-cg"></em><i>CLICK TO VIEW ↗</i></div></div>
+  <div class="ghud-m g3o">
+    <button class="gm-back" data-act="back">← ARCHIVE</button>
+    <div class="gm-top"><div class="gintro"><div class="gi-k"><span>FILE NO.<span class="js-gno">${d.no}</span></span><span>${pad(d.count)} FILES</span></div>
+      <div class="gi-t"><h1 class="js-gt">${d.cn}</h1><em>${d.en}</em></div>
+      <p class="gi-ab">${d.desc}</p>
+      <p class="gi-s"><i></i>上下滑动 · 沿档案脊柱浏览作品</p></div></div>
+    <div class="gm-side"><div class="gr-r"><b class="js-gn">00</b><span>/ ${pad(d.count)}</span><p class="js-gg">${d.groups[0].cn}</p><em class="js-ge">${d.groups[0].en}</em></div>
+      <div class="gr-w">${TICKS}</div></div>
+    <div class="gm-bot">
+      <div class="gtitle"><p><i></i><span class="js-tk"></span></p><h3 class="js-tt"></h3><em class="js-te"></em></div>
+      <div class="gcap"><b class="js-cn"></b><span class="js-cc"></span><em class="js-cg"></em><i>轻点查看 ↗</i></div>
+      ${GNEXT(1)}
+    </div>
+  </div>`;
   V.appendChild(P);const sc=P.querySelector('.fsc'),pgB=P.querySelector('.js-pg'),pgN=P.querySelector('.js-pn');P._sc=sc;
   P.querySelectorAll('[data-act="back"]').forEach(b=>b.onclick=closeFile);
   P.querySelectorAll('[data-act="resume"]').forEach(b=>b.onclick=()=>shutter('LOGOUT · RESUME',()=>show('cover')));
@@ -2265,10 +2375,11 @@ function closeFile(){shutter('FILE SEALED',()=>show('cabinet'))}
    Layout & motion idea after reverieach/rhine-lab-art (spine + glass exhibit plates).
    Implementation, shaders and palette are original to this page. */
 window.G3={ok:false,on:false,mode3:true,k:null};
+/* 移动端口径：手机/窄屏同样跑 3D 脊柱展廊，只做性能与 HUD 降级，不改视觉语言 */
+window.ISMOB=matchMedia('(max-width:900px),(max-aspect-ratio:1/1)').matches;
 const gsrc=(k,id)=>{const key=DIR[k]+'_'+pad(id);return (window.WB64&&WB64[key])||F(k,id)};
 function initG3(){
   if(G3.ok||G3.tried||!window.THREE||!window.A3||!A3.ok||!A3.cassette)return;G3.tried=true;
-  if(matchMedia('(max-width:900px),(max-aspect-ratio:1/1)').matches)return;
   const pre=[];ORDER.forEach(k=>DATA[k].groups.forEach(g=>g.items.forEach(([id])=>{const i=new Image();i.decoding='async';i.src=gsrc(k,id);G3IMG[i.src]=i;pre.push(i.decode().catch(()=>{}))})));
   Promise.all(pre).then(initG3b)}
 const G3IMG={};
@@ -2277,7 +2388,7 @@ function initG3b(){
   const T=THREE,V3=T.Vector3,cv=document.createElement('canvas');cv.id='g3cv';$('#file').prepend(cv);
   const R=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true,powerPreference:'high-performance'});
   if(!R.capabilities.isWebGL2)throw new Error('webgl2');
-  R.setPixelRatio(Math.min(devicePixelRatio||1,1.5));R.outputColorSpace=T.SRGBColorSpace;R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.04;R.setClearColor(0,0);
+  R.setPixelRatio(Math.min(devicePixelRatio||1,ISMOB?1.2:1.5));R.outputColorSpace=T.SRGBColorSpace;R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.04;R.setClearColor(0,0);
   const sc=new T.Scene(),FOGC=new T.Color('#e6e0d6');sc.fog=new T.Fog(FOGC,26,62);
   const cam=new T.PerspectiveCamera(30,16/9,.5,240);
   /* soft studio environment */
@@ -2311,7 +2422,7 @@ function initG3b(){
      if(h<.06)c.copy(A).lerp(IV,.12);else if(h<.1)c.copy(A).lerp(IV,.55);else c.copy(IV).lerp(IV2,Math.pow(hs(i,31),1.4));plI.setColorAt(i,c)}plI.instanceColor.needsUpdate=true;PU.uAcc.value.set(acc)};
   const rod=new T.Mesh(new T.CylinderGeometry(.055,.055,SPN*SPD+4,16,1),new T.MeshPhysicalMaterial({color:'#dcc394',metalness:1,roughness:.24,envMapIntensity:1.2}));rod.position.y=SPTOP-(SPN*SPD+4)/2;spine.add(rod);
   /* ---------- drifting dust ---------- */
-  const NP=1500,pa=new Float32Array(NP*3),pb=new Float32Array(NP*4);
+  const NP=ISMOB?760:1500,pa=new Float32Array(NP*3),pb=new Float32Array(NP*4);
   for(let i=0;i<NP;i++){const r=1.3+Math.pow(Math.random(),1.5)*8.5,a=Math.random()*6.283;pa[i*3]=Math.cos(a)*r;pa[i*3+1]=Math.random();pa[i*3+2]=Math.sin(a)*r;
     pb[i*4]=2+Math.random()*7;pb[i*4+1]=Math.pow(Math.random(),.8);pb[i*4+2]=.15+Math.random()*.6;pb[i*4+3]=Math.random()*6.283}
   const pGeo=new T.BufferGeometry();pGeo.setAttribute('position',new T.BufferAttribute(pa,3));pGeo.setAttribute('aD',new T.BufferAttribute(pb,4));
@@ -2403,8 +2514,12 @@ function initG3b(){
   addEventListener('resize',()=>{if(G3.ok)size()});size();
   function showA(A){for(const k in BUILT)BUILT[k].grp.visible=BUILT[k]===A;tintSpine(A.D.acc);pMat.uniforms.uAcc.value.set(A.D.acc);pMat.uniforms.uTop.value=A.top;pMat.uniforms.uSpan.value=A.top-A.bot;
     spine.position.y=A.top+.6-SPTOP;plI.count=Math.min(SPN,Math.ceil((A.top+.6-A.bot)/SPD))}
-  function bindEl(P){const q=c=>P.querySelector(c);S.el={intro:q('.gintro'),tt:q('.js-tt'),tk:q('.js-tk'),te:q('.js-te'),title:q('.gtitle'),cap:q('.gcap'),cn:q('.js-cn'),cc:q('.js-cc'),cg:q('.js-cg'),
-    gn:q('.js-gn'),gg:q('.js-gg'),ge:q('.js-ge'),ticks:[...P.querySelectorAll('.gr-t')],rail:[...P.querySelectorAll('.frail li')],pg:q('.js-pg'),pn:q('.js-pn'),next:q('.gnext'),ovb:q('.js-gov'),mode:q('.js-mode span')}}
+  /* 移动端优先取挂在视口上的 .ghud-m 副本，桌面仍用 1600×900 画布内的元素 */
+  function bindEl(P){const MOB=!!window.ISMOB;
+    const q=c=>{const m=MOB?P.querySelector('.ghud-m '+c):null;return m||P.querySelector(c)};
+    const qa=c=>{const m=MOB?[...P.querySelectorAll('.ghud-m '+c)]:[];return m.length?m:[...P.querySelectorAll(c)]};
+    S.el={intro:q('.gintro'),tt:q('.js-tt'),tk:q('.js-tk'),te:q('.js-te'),title:q('.gtitle'),cap:q('.gcap'),cn:q('.js-cn'),cc:q('.js-cc'),cg:q('.js-cg'),
+    gn:q('.js-gn'),gg:q('.js-gg'),ge:q('.js-ge'),ticks:qa('.gr-t'),rail:qa('.frail li'),pg:q('.js-pg'),pn:q('.js-pn'),next:q('.gnext'),ovb:q('.js-gov'),mode:q('.js-mode span')}}
   function onActive(a){const A=S.A,E=S.el;if(!A||!E.ticks)return;
     E.intro&&E.intro.classList.toggle('off',a>=0);E.next&&E.next.classList.toggle('on',a===A.n-1);
     const j=Math.max(0,a),it=A.items[j];
@@ -2429,10 +2544,13 @@ function initG3b(){
     if(S.ov>0&&now-S.ovt>420)S.ov=Math.max(0,S.ov-dt*1.2);if(S.el.ovb)S.el.ovb.style.width=(S.ov*100)+'%';
     const settled=Math.abs(p-a)<.03&&Math.abs(v)<.09&&!S.drag;
     /* camera — pulled further back than the reference so neighbours and spine stay in frame */
-    const asp=innerWidth/innerHeight,Dd=16*Math.max(1,Math.min(1.45,(16/9)/asp)),tan=Math.tan(cam.fov*Math.PI/360),visW=2*Dd*tan*asp;
+    /* 竖屏时按宽高比把镜头往后拉（上限放宽到 2.2x），保证展板与相邻档案盒都进画 */
+    const asp=innerWidth/innerHeight,Dd=16*Math.max(1,Math.min(2.2,(16/9)/asp)),tan=Math.tan(cam.fov*Math.PI/360),visW=2*Dd*tan*asp;
+    if(sc.fog){sc.fog.near=Dd*1.62;sc.fog.far=Dd*3.88}
     const th=p*A.DT,f=sm(p+1);_u.set(Math.sin(th),0,Math.cos(th));_r.set(Math.cos(th),0,-Math.sin(th));
     const rad=lerp(A.R*.72,A.R,f);_c.set(_u.x*rad,-p*A.DY+(1-f)*A.DY*.02,_u.z*rad);
-    const sx=lerp(.275,.075,f)*visW;S.smx+=(S.mx-S.smx)*.06;S.smy+=(S.my-S.smy)*.06;
+    /* 桌面把展板往右推给左侧 HUD 留位；手机 HUD 在上下，展板回到画面中心 */
+    const sx=lerp(.275,.075,f)*visW*(window.ISMOB?.16:1);S.smx+=(S.mx-S.smx)*.06;S.smy+=(S.my-S.smy)*.06;
     _t.copy(_c).addScaledVector(_r,-sx).addScaledVector(UP,.05-(1-f)*.15);
     cam.position.copy(_t).addScaledVector(_u,Dd).addScaledVector(UP,.9).addScaledVector(_r,S.smx*.55).addScaledVector(UP,-S.smy*.4);
     cam.lookAt(_t);cam.updateMatrixWorld();
@@ -2453,7 +2571,9 @@ function initG3b(){
       const hit=ray.intersectObjects([...A.cards.map(c=>c.slab),A.casHit],false)[0];setHover(hit?hit.object.userData.j:null)}
     /* overlays */
     const E=S.el,ss=Math.min(innerWidth/1600,innerHeight/900);
-    if(a>=0&&E.title){const c=A.cards[a];_v.set(0,0,0).applyMatrix4(c.cg.matrixWorld).project(cam);
+    if(window.ISMOB){/* 手机端标题/说明固定在底部，不跟随展板缩放 */
+      if(E.title){const mo=cl(1-Math.abs(p-a)*1.5,0,1);E.title.style.opacity=mo.toFixed(3);E.cap.style.opacity=(a>=0?mo:0).toFixed(3)}}
+    else if(a>=0&&E.title){const c=A.cards[a];_v.set(0,0,0).applyMatrix4(c.cg.matrixWorld).project(cam);
       const x=(_v.x+1)/2*innerWidth,y=(1-_v.y)/2*innerHeight,op=(1-sm(c.clar))*(1-cl(Math.abs(p-a)*2.4,0,1));
       E.title.style.opacity=op.toFixed(3);E.title.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,-50%) scale(${(ss*(.94+.06*op)).toFixed(3)})`;
       _v.set(0,-c.H/2-c.MB-.12,0).applyMatrix4(c.cg.matrixWorld).project(cam);
@@ -2469,11 +2589,24 @@ function initG3b(){
     if(e.deltaY>0&&Math.round(S.p.value)===A.n-1&&S.tg>=A.n-1-1e-3){S.ov=Math.min(1,S.ov+Math.min(.34,Math.abs(e.deltaY)/360));S.ovt=performance.now();
       if(S.ov>=1){S.ov=0;const i=ORDER.indexOf(A.k);if(i===ORDER.length-1)openThanks();else openFile(ORDER[(i+1)%3])}return}
     S.ov=0;S.tg+=Math.sign(e.deltaY)*Math.min(.62,Math.abs(e.deltaY)*.0062);S.wt=performance.now()},{passive:true});
+  /* 触摸没有 hover，点开展板要靠松手位置的射线拾取 */
+  const pickAt=(x,y)=>{const A=S.A;if(!A)return null;ray.setFromCamera(ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1),cam);
+    const hit=ray.intersectObjects([...A.cards.map(c=>c.slab),A.casHit],false)[0];return hit?hit.object.userData.j:null};
   cv.addEventListener('pointermove',e=>{S.mx=e.clientX/innerWidth-.5;S.my=e.clientY/innerHeight-.5;if(e.pointerType==='mouse'){S.px=e.clientX;S.py=e.clientY;S.pm=true}
-    if(S.drag){const dy=e.clientY-S.drag.y;S.drag.m=Math.max(S.drag.m,Math.abs(dy));S.tg=S.drag.t0-dy*.0075}});
+    if(S.drag){const dy=e.clientY-S.drag.y;S.drag.m=Math.max(S.drag.m,Math.abs(dy));S.tg=S.drag.t0-dy*.0075;
+      /* 已到末张仍继续上滑 → 累积越界进度，走和滚轮一样的「下一份档案 / 感谢页」 */
+      if(S.A&&S.tg>=S.A.n-1-1e-3&&dy<0){S.ov=Math.min(1,S.ov+Math.abs(dy)*.0045);S.ovt=performance.now();
+        if(S.ov>=1){S.ov=0;const i=ORDER.indexOf(S.A.k);if(i===ORDER.length-1)openThanks();else openFile(ORDER[(i+1)%3]);return}}
+      const nt=performance.now();if(S.drag.lt){const dtm=Math.max(8,nt-S.drag.lt);S.drag.v=(S.drag.v||0)*.55+(dy/dtm)*.45}else S.drag.v=0;S.drag.lt=nt}});
   cv.addEventListener('pointerleave',()=>{S.px=null;setHover(null)});
-  cv.addEventListener('pointerdown',e=>{if(fx)return;S.drag={y:e.clientY,t0:S.tg,m:0};cv.setPointerCapture(e.pointerId)});
-  const up=e=>{const d=S.drag;S.drag=null;if(!d)return;S.tg=Math.round(S.tg);if(d.m<6&&S.hov!==null&&!fx){const j=S.hov;if(j===-1)G3.go(0);else if(j===S.a&&S.A)openLB(S.A.k,j);else G3.go(j)}};
+  cv.addEventListener('pointerdown',e=>{if(fx)return;S.drag={y:e.clientY,t0:S.tg,m:0,v:0,lt:0};cv.setPointerCapture(e.pointerId)});
+  const up=e=>{const d=S.drag;S.drag=null;if(!d)return;
+    if(d.m<9){/* 轻点：先取 hover（鼠标），触摸则用落点射线 */
+      S.tg=Math.round(S.tg);const j=(e.pointerType==='mouse'&&S.hov!==null&&S.hov!==undefined)?S.hov:pickAt(e.clientX,e.clientY);
+      if(j!==null&&!fx){if(j===-1)G3.go(0);else if(j===Math.round(S.tg)&&S.A)openLB(S.A.k,j);else G3.go(j)}return}
+    /* 拖拽：补一点惯性，然后吸附到最近展板 */
+    const vv=d.v||0;if(Math.abs(vv)>.12)S.tg-=vv*1.9;
+    if(S.A)S.tg=cl(S.tg,-1,S.A.n-1);S.tg=Math.round(S.tg)};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',()=>{S.drag=null;S.tg=Math.round(S.tg)});
   /* ---------- API ---------- */
   G3.prepare=k=>{const A=build(k);[...A.cards.map(c=>c.L.tA),...A.cards.map(c=>c.L.tB),...A.cards.map(c=>c.lab.material.map)].forEach(t=>R.initTexture(t))};
@@ -2482,7 +2615,8 @@ function initG3b(){
     if(S.el.mode)S.el.mode.textContent='GRID VIEW';P.querySelectorAll('.js-mode b').forEach(b=>b.textContent='▦');
     setTimeout(()=>{scramble(P.querySelector('.js-gno'),A.D.no);scramble(P.querySelector('.js-gt'),A.D.cn)},140);
     G3.on=true;size();render(performance.now());if(!S.run){S.run=true;S.last=0;requestAnimationFrame(frame)}if(!fx)G3.hires()};
-  G3.hires=()=>{S.hq=true};
+  /* 手机端不换原图：lowres 的 640px 板片在手机屏上已经够清晰，避免 40 张原图把显存吃满 */
+  G3.hires=()=>{if(!window.ISMOB)S.hq=true};
   G3.stop=()=>{S.run=false;G3.on=false};
   G3.go=j=>{if(!S.A)return;S.tg=cl(Math.round(j),-1,S.A.n-1);S.ov=0};
   G3.step=d=>{if(!S.A)return;const A=S.A,c=Math.round(S.tg);if(d>0&&c>=A.n-1){S.ov=Math.min(1,S.ov+.5);S.ovt=performance.now();if(S.ov>=1){S.ov=0;const i=ORDER.indexOf(A.k);if(i===ORDER.length-1)openThanks();else openFile(ORDER[(i+1)%3])}return}G3.go(c+d)};
@@ -2697,13 +2831,12 @@ window.TK={ok:false};
    Splines, normal map, matcap and all code are generated / written for this page; no Active Theory code or assets are included. */
 window.VW={open:false,cover:false,tc:0,dead:false};
 /* 手机端：流体暗房改用轻量大图灯箱（移动端 GPU 压力 + 滚轮/右键交互不可用） */
-window.ISMOB=matchMedia('(max-width:900px),(max-aspect-ratio:1/1)').matches;
-if(window.ISMOB)window.VW.dead=true;
+/* 手机端同样走流体暗房，只做降配（粒子 65k / 流体 176 / pixelRatio 1）+ 触控化 HUD */
 (function(){
   let built=false,T,R,cv,cam,pcam,qCam,Q,qm,scn,room,panel,pts,NMAP,NP=0;
   const FL={},P={};let rtP,rtM=[null,null],mi=0;
   const S={st:'closed',a:0,k:null,i:0,L:null,r0:null,rT:null,rC:null,tex:{},mixT:0,swap:false,mx:-1,my:-1,pmx:-1,pmy:-1,last:0,t:0,run:false,smx:0,smy:0,pc:null,hid:null,hud:false,reset:true,splats:[],q:0,fq:[],qn:0};
-  const FOV=30,TN=Math.tan(FOV*Math.PI/360),D0=2.5/TN,CZ=D0+1,ZP=2.0,PCZ=22,PW=512,PH=512;
+  const FOV=30,TN=Math.tan(FOV*Math.PI/360),D0=2.5/TN,CZ=D0+1,ZP=2.0,PCZ=22,PW=ISMOB?256:512,PH=ISMOB?256:512;
   const eio=t=>{t=Math.max(0,Math.min(1,t));return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2},sm=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)},lerp=(a,b,k)=>a+(b-a)*k;
   const lr=(a,b,k)=>({x:lerp(a.x,b.x,k),y:lerp(a.y,b.y,k),w:lerp(a.w,b.w,k),h:lerp(a.h,b.h,k)});
   function listOf(k){const L=[];DATA[k].groups.forEach((g,gi)=>g.items.forEach(([id,cap])=>L.push({id,cap,g,gi})));return L}
@@ -2835,7 +2968,7 @@ if(window.ISMOB)window.VW.dead=true;
     const t=new T.DataTexture(d,N,N,T.RGBAFormat);t.wrapS=t.wrapT=T.RepeatWrapping;t.magFilter=T.LinearFilter;t.minFilter=T.LinearMipmapLinearFilter;t.generateMipmaps=true;t.anisotropy=8;t.needsUpdate=true;return t}
   function size(){if(!built)return;R.setSize(innerWidth,innerHeight,false);const w=cv.width,h=cv.height,asp=innerWidth/innerHeight;
     rtP.setSize(w,h);rtM[0].setSize(w,h);rtM[1].setSize(w,h);
-    FL.w=Math.round(256*Math.max(1,asp));FL.h=Math.round(FL.w/asp);FL.vel.size(FL.w,FL.h);FL.dye.size(FL.w,FL.h);FL.prs.size(FL.w,FL.h);FL.div.setSize(FL.w,FL.h);FL.curl.setSize(FL.w,FL.h);
+    FL.w=Math.round((ISMOB?176:256)*Math.max(1,asp));FL.h=Math.round(FL.w/asp);FL.vel.size(FL.w,FL.h);FL.dye.size(FL.w,FL.h);FL.prs.size(FL.w,FL.h);FL.div.setSize(FL.w,FL.h);FL.curl.setSize(FL.w,FL.h);
     cam.aspect=asp;cam.updateProjectionMatrix();pcam.aspect=asp;pcam.updateProjectionMatrix();room.scale.set(asp*5,5,5);room.position.z=.35*5;
     for(const m of [room.material,panel.material])m.uniforms.uRes.value.set(w,h);
     FL.clear=true;if(S.st==='open'&&S.L){const o=getTex(S.k,S.L[S.i].id);S.rT=fit(o.a);S.rC=Object.assign({},S.rT)}}
@@ -2843,7 +2976,7 @@ if(window.ISMOB)window.VW.dead=true;
     try{T=THREE;cv=$('#vwcv');
       R=new T.WebGLRenderer({canvas:cv,antialias:false,alpha:true,premultipliedAlpha:true,powerPreference:'high-performance'});
       if(!R.capabilities.isWebGL2)throw new Error('webgl2');
-      R.setPixelRatio(Math.min(devicePixelRatio||1,1.5));R.setClearColor(0,0);R.autoClear=true;
+      R.setPixelRatio(Math.min(devicePixelRatio||1,ISMOB?1:1.5));R.setClearColor(0,0);R.autoClear=true;
       const FLT=!!R.extensions.get('EXT_color_buffer_float');
       qCam=new T.OrthographicCamera(-1,1,1,-1,0,1);Q=new T.Scene();qm=new T.Mesh(new T.PlaneGeometry(2,2));qm.frustumCulled=false;Q.add(qm);
       cam=new T.PerspectiveCamera(FOV,16/9,.1,80);cam.position.set(0,0,CZ);
