@@ -1020,7 +1020,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 <div id="loader">
   <div class="ld-grid"></div>
   <div class="ld-hud tl"><b>LTY ARCHIVE OS</b><span>GAME UI DESIGNER · PORTFOLIO</span></div>
-  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.11 · v26 · UTC+8</span></div>
+  <div class="ld-hud tr"><span class="js-clock">--:--:--</span><span>BUILD 2026.11 · v27 · UTC+8</span></div>
   <ul class="ld-log" id="ldLog"></ul>
   <div class="ld-ticks" id="ldTicks"></div>
   <div class="ld-num"><span class="n">0</span><i>%</i></div>
@@ -1253,7 +1253,7 @@ body.mv .cur,body.mv .cur-r{opacity:1}
 
 <div class="cur"></div><div class="cur-r" data-t="VIEW"></div>
 <div class="grain"></div>
-<i class="vtag">LTY ARCHIVE OS · v26 · 2026.11.03</i>
+<i class="vtag">LTY ARCHIVE OS · v27 · 2026.11.03</i>
 
 <script src="data/works.js"></script>
 <script src="data/resume.js"></script>
@@ -2508,6 +2508,7 @@ function initG3b(){
   /* ---------- state ---------- */
   const S={run:false,A:null,P:null,p:{value:-1,velocity:0},tg:-1,a:null,t:0,last:0,wt:0,ov:0,ovt:0,hov:null,mx:0,my:0,smx:0,smy:0,px:null,py:null,pm:false,drag:null,first:true,el:{}};
   const damp=(s,tg,rate,dt)=>{const d=s.value-tg,im=s.velocity+rate*d,dc=Math.exp(-rate*dt);s.value=tg+(d+im*dt)*dc;s.velocity=(s.velocity-rate*im*dt)*dc};
+  const DRAGK=2.0;   /* 触摸拖拽灵敏度：滑过约半个屏幕高度 = 1 张作品 */
   const cl=(x,a,b)=>Math.max(a,Math.min(b,x)),sm=t=>{t=cl(t,0,1);return t*t*t*(t*(t*6-15)+10)},lerp=(a,b,k)=>a+(b-a)*k;
   const ray=new T.Raycaster(),ndc=new T.Vector2(),_v=new V3(),_u=new V3(),_r=new V3(),_c=new V3(),_t=new V3(),UP=new V3(0,1,0);
   function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();pMat.uniforms.uPR.value=R.getPixelRatio()*innerHeight/900}
@@ -2538,7 +2539,8 @@ function initG3b(){
     const A=S.A;if(!A)return;
     if(S.wt&&now-S.wt>170){S.tg=Math.round(S.tg);S.wt=0}
     if(!S.drag)S.tg=cl(S.tg,-1,A.n-1);
-    damp(S.p,S.tg,S.first?60:7.2,dt);
+    /* 拖动中把阻尼收紧（画面紧跟手指），松手后回到 7.2 做惯性滑行 */
+    damp(S.p,S.tg,S.first?60:(S.drag?18:7.2),dt);
     const p=S.p.value,v=S.p.velocity,a=cl(Math.round(p),-1,A.n-1);
     if(a!==S.a){S.a=a;onActive(a)}
     if(S.ov>0&&now-S.ovt>420)S.ov=Math.max(0,S.ov-dt*1.2);if(S.el.ovb)S.el.ovb.style.width=(S.ov*100)+'%';
@@ -2593,20 +2595,28 @@ function initG3b(){
   const pickAt=(x,y)=>{const A=S.A;if(!A)return null;ray.setFromCamera(ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1),cam);
     const hit=ray.intersectObjects([...A.cards.map(c=>c.slab),A.casHit],false)[0];return hit?hit.object.userData.j:null};
   cv.addEventListener('pointermove',e=>{S.mx=e.clientX/innerWidth-.5;S.my=e.clientY/innerHeight-.5;if(e.pointerType==='mouse'){S.px=e.clientX;S.py=e.clientY;S.pm=true}
-    if(S.drag){const dy=e.clientY-S.drag.y;S.drag.m=Math.max(S.drag.m,Math.abs(dy));S.tg=S.drag.t0-dy*.0075;
+    if(S.drag){const dy=e.clientY-S.drag.y;S.drag.m=Math.max(S.drag.m,Math.abs(dy));
+      /* 灵敏度按屏高比例算（滑过约半个屏 ≈ 1 张），不再用固定 px 系数，否则手机上一下就飞几张；
+         单次拖拽位移封顶 ±1.8 张，想走远就连滑几次 —— 就是网页滚轮的手感 */
+      S.tg=cl(S.drag.t0-dy*(DRAGK/innerHeight),S.drag.t0-1.8,S.drag.t0+1.8);
       /* 已到末张仍继续上滑 → 累积越界进度，走和滚轮一样的「下一份档案 / 感谢页」 */
-      if(S.A&&S.tg>=S.A.n-1-1e-3&&dy<0){S.ov=Math.min(1,S.ov+Math.abs(dy)*.0045);S.ovt=performance.now();
+      if(S.A&&S.tg>=S.A.n-1-1e-3&&dy<0){S.ov=Math.min(1,S.ov+Math.abs(dy)/innerHeight*.5);S.ovt=performance.now();
         if(S.ov>=1){S.ov=0;const i=ORDER.indexOf(S.A.k);if(i===ORDER.length-1)openThanks();else openFile(ORDER[(i+1)%3]);return}}
-      const nt=performance.now();if(S.drag.lt){const dtm=Math.max(8,nt-S.drag.lt);S.drag.v=(S.drag.v||0)*.55+(dy/dtm)*.45}else S.drag.v=0;S.drag.lt=nt}});
+      /* 用 110ms 滑动窗口记录轨迹，松手时取平均速度算惯性 —— 瞬时速度会被合并的事件放大好几倍 */
+      const nt=performance.now(),H=S.drag.h||(S.drag.h=[]);H.push([nt,e.clientY]);
+      while(H.length>1&&nt-H[0][0]>110)H.shift()}});
   cv.addEventListener('pointerleave',()=>{S.px=null;setHover(null)});
-  cv.addEventListener('pointerdown',e=>{if(fx)return;S.drag={y:e.clientY,t0:S.tg,m:0,v:0,lt:0};cv.setPointerCapture(e.pointerId)});
+  cv.addEventListener('pointerdown',e=>{if(fx)return;S.drag={y:e.clientY,t0:S.tg,m:0,h:[[performance.now(),e.clientY]]};cv.setPointerCapture(e.pointerId)});
   const up=e=>{const d=S.drag;S.drag=null;if(!d)return;
     if(d.m<9){/* 轻点：先取 hover（鼠标），触摸则用落点射线 */
       S.tg=Math.round(S.tg);const j=(e.pointerType==='mouse'&&S.hov!==null&&S.hov!==undefined)?S.hov:pickAt(e.clientX,e.clientY);
       if(j!==null&&!fx){if(j===-1)G3.go(0);else if(j===Math.round(S.tg)&&S.A)openLB(S.A.k,j);else G3.go(j)}return}
-    /* 拖拽：补一点惯性，然后吸附到最近展板 */
-    const vv=d.v||0;if(Math.abs(vv)>.12)S.tg-=vv*1.9;
-    if(S.A)S.tg=cl(S.tg,-1,S.A.n-1);S.tg=Math.round(S.tg)};
+    /* 拖拽：按滑动窗口平均速度补一小段惯性（上限 1.2 张），交给 render 里的 170ms 延迟吸附，
+       形成「跟手 → 惯性滑行 → 缓慢吸附」的网页滚轮手感，而不是一步跳到位 */
+    const H=d.h||[];let vy=0;
+    if(H.length>1){const a=H[0],b=H[H.length-1],dtm=Math.max(16,b[0]-a[0]);vy=(b[1]-a[1])/dtm}
+    if(Math.abs(vy)>.12)S.tg-=cl(vy*(DRAGK/innerHeight)*200,-1.2,1.2);
+    if(S.A)S.tg=cl(S.tg,-1,S.A.n-1);S.wt=performance.now()};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',()=>{S.drag=null;S.tg=Math.round(S.tg)});
   /* ---------- API ---------- */
   G3.prepare=k=>{const A=build(k);[...A.cards.map(c=>c.L.tA),...A.cards.map(c=>c.L.tB),...A.cards.map(c=>c.lab.material.map)].forEach(t=>R.initTexture(t))};
